@@ -6,7 +6,7 @@ import DragableList from "./components/DragableList";
 
 function App() {
   return (
-    <div className="p-10">
+    <div className="p-20">
       <Routes>
         <Route path="/" element={<GroupList />} />
         <Route path="dragList" element={<DragableList />} />

@@ -6,7 +6,9 @@ export default function AccountList({ account }) {
     <div>
       {account.map((account, index) => (
         <div key={index} className="flex">
-          <p className="text-xl mb-5 ml-14 flex-grow ">{account.name}</p>
+          <p className="text-[#374962] font-medium text-xl mb-5 ml-14 flex-grow ">
+            {account.name}
+          </p>
 
           <Link to="dragList">
             <AiOutlineArrowsAlt className="mr-[400px]" />

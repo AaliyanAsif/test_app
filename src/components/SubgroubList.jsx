@@ -10,7 +10,7 @@ export default function SubgroubList({ subgroup }) {
         return (
           <div key={index}>
             <div className=" flex ">
-              <h3 className="text-2xl ml-5 mb-5 flex-grow ">
+              <h3 className="text-[#374962] text-2xl font-medium ml-5 mb-5 flex-grow ">
                 {subgroup.name}{" "}
               </h3>
               <div>
