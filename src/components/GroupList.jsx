@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { data } from "../data";
 import axios from "axios";
 
 import SubgroubList from "./SubgroubList";
@@ -31,7 +30,7 @@ export default function GroupList() {
           <h1 className="text-[#d5a85d] font-medium text-4xl my-5" key={index}>
             {group.name}{" "}
           </h1>
-          <SubgroubList subgroup={group.subGroups} />
+          <SubgroubList subgroup={group.subGroups} groupID={group._id} />
         </div>
       ))}
     </div>
