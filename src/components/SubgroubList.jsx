@@ -14,10 +14,8 @@ export default function SubgroubList({ subgroup, groupID }) {
             <div className=" flex ">
               <h3 className="text-[#374962] text-2xl font-medium ml-5 mb-5 flex-grow ">
                 {subgroup.name}
-                {groupID}
               </h3>
               <div>
-                {/* <Link to={{ pathname: "dragList", state: dataToPass }}> */}
                 <button
                   onClick={() =>
                     navigate("dragList", {
@@ -27,7 +25,6 @@ export default function SubgroubList({ subgroup, groupID }) {
                 >
                   <AiOutlineArrowsAlt className="mr-[400px]" />
                 </button>
-                {/* </Link> */}
               </div>
             </div>
 

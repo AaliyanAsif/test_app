@@ -4,10 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
-const data = Array(10)
-  .fill(null)
-  .map((item, index) => ({ id: index, name: "xyz" }));
-
 export default function DragableList() {
   const { state } = useLocation();
   const { groupID, subGroupID } = state;
@@ -15,8 +11,7 @@ export default function DragableList() {
   const [subGroups, setSubGroups] = useState([]);
   const [account, setAccounts] = useState([]);
 
-  const [subGroupNames, setSubGroupNames] = useState([]);
-  const [accountNames, setAccountNames] = useState([]);
+  const [list, setList] = useState([]);
 
   const subGroupEndPoint = `https://dolphin-app-pr7kk.ondigitalocean.app/api/settings/balancesheet/subGroup/group/${groupID}`;
 
@@ -26,39 +21,55 @@ export default function DragableList() {
     const fetchData = async () => {
       try {
         const response = await axios.get(subGroupEndPoint);
-        console.log("Data:", response.data);
+        // console.log("Data:", response.data);
         setSubGroups(response.data.subGroups);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [subGroupEndPoint]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(accountEndPoint);
-        console.log("Data:", response.data);
-        // console.log(response.data.accounts);
+        // console.log("Data:", response.data);
         setAccounts(response.data.accounts);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [accountEndPoint]);
 
-  const data1 = subGroups?.map((item, index) => ({
-    id: item._id,
-    name: item.name,
-  }));
-  console.log(data1);
-  const [list, setList] = useState(data);
+  useEffect(() => {
+    // Map the fetched data to the desired format
+
+    if (subGroups !== undefined) {
+      const data1 = subGroups?.map((item) => ({
+        id: item._id,
+        name: item.name,
+      }));
+
+      // Set the mapped data to the state
+
+      setList(data1);
+    } else {
+      const data1 = account?.map((item) => ({
+        id: item._id,
+        name: item.name,
+      }));
+
+      // Set the mapped data to the state
+
+      setList(data1);
+    }
+  }, [subGroups, account]);
+
   const containerRef = useRef();
 
   const _onListChange = (newList) => {
-    console.log(newList);
     setList(newList);
   };
 
@@ -118,14 +129,6 @@ export default function DragableList() {
         ref={containerRef}
         style={{ touchAction: "pan-y", background: "beige" }}
       >
-        {/* {subGroups?.map((subgroup) => (
-          <h1>{subgroup.name}</h1>
-        ))}
-
-        {account?.map((account) => (
-          <h1>{account.name}</h1>
-        ))} */}
-
         <DraggableList
           itemKey="id"
           template={Item}
@@ -133,7 +136,6 @@ export default function DragableList() {
           onMoveEnd={(newList) => _onListChange(newList)}
           container={() => containerRef.current}
         />
-        {console.log(groupID, subGroupID)}
       </div>
     </div>
   );
