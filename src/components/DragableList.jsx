@@ -71,6 +71,27 @@ export default function DragableList() {
 
   const _onListChange = (newList) => {
     setList(newList);
+    console.log(newList);
+
+    const newListID = newList.map((item) => item.id);
+    console.log(newListID);
+    const updateItems = async () => {
+      try {
+        const apiUrl = `https://dolphin-app-pr7kk.ondigitalocean.app/api/settings/balancesheet/account/updateAccountOrder/65bb96edb99ffe6ca257f590`;
+
+        console.log("log", apiUrl);
+        // Make a POST request with Axios
+        const response = await axios.put(apiUrl, { accountIds: newListID });
+
+        // Handle the response as needed
+        console.log("Server response:", response.data);
+      } catch (error) {
+        // Handle errors
+        console.error("Error updating items:", error);
+      }
+    };
+    updateItems();
+    console.log(list);
   };
 
   const Item = ({ item, itemSelected, dragHandleProps }) => {

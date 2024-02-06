@@ -12,7 +12,6 @@ export default function AccountList({ account }) {
            text-xl mb-5 ml-14 flex-grow "
           >
             {account.name}
-            {console.log(account.subGroup)}
           </p>
 
           {/* <Link to="dragList"> */}
