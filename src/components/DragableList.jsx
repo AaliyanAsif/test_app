@@ -53,7 +53,6 @@ export default function DragableList() {
       }));
 
       // Set the mapped data to the state
-
       setList(data1);
     } else {
       const data1 = account?.map((item) => ({
@@ -62,7 +61,6 @@ export default function DragableList() {
       }));
 
       // Set the mapped data to the state
-
       setList(data1);
     }
   }, [subGroups, account]);
@@ -75,23 +73,42 @@ export default function DragableList() {
 
     const newListID = newList.map((item) => item.id);
     console.log(newListID);
-    const updateItems = async () => {
-      try {
-        const apiUrl = `https://dolphin-app-pr7kk.ondigitalocean.app/api/settings/balancesheet/account/updateAccountOrder/65bb96edb99ffe6ca257f590`;
 
-        console.log("log", apiUrl);
-        // Make a POST request with Axios
-        const response = await axios.put(apiUrl, { accountIds: newListID });
+    if (subGroups !== undefined) {
+      const updateSubgroub = async () => {
+        try {
+          const apiUrl = `https://dolphin-app-pr7kk.ondigitalocean.app/api/settings/balancesheet/account/updateSubGroupsOrderInGroup/${groupID}`;
 
-        // Handle the response as needed
-        console.log("Server response:", response.data);
-      } catch (error) {
-        // Handle errors
-        console.error("Error updating items:", error);
-      }
-    };
-    updateItems();
-    console.log(list);
+          console.log("log", apiUrl);
+          // Make a POST request with Axios
+          const response = await axios.put(apiUrl, { subgroupIds: newListID });
+
+          // Handle the response as needed
+          console.log("Server response:", response.data);
+        } catch (error) {
+          // Handle errors
+          console.error("Error updating items:", error);
+        }
+      };
+      updateSubgroub();
+    } else {
+      const updateAccounts = async () => {
+        try {
+          const apiUrl = `https://dolphin-app-pr7kk.ondigitalocean.app/api/settings/balancesheet/account/updateAccountOrder/${subGroupID}`;
+
+          console.log("log", apiUrl);
+          // Make a POST request with Axios
+          const response = await axios.put(apiUrl, { accountIds: newListID });
+
+          // Handle the response as needed
+          console.log("Server response:", response.data);
+        } catch (error) {
+          // Handle errors
+          console.error("Error updating items:", error);
+        }
+      };
+      updateAccounts();
+    }
   };
 
   const Item = ({ item, itemSelected, dragHandleProps }) => {
