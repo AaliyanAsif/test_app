@@ -1,7 +1,7 @@
 import "../style.css";
 import DraggableList from "react-draggable-list";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function DragableList() {
@@ -167,6 +167,9 @@ export default function DragableList() {
         ref={containerRef}
         style={{ touchAction: "pan-y", background: "beige" }}
       >
+        <Link to="/">
+          <button>Back</button>
+        </Link>
         <DraggableList
           itemKey="id"
           template={Item}
